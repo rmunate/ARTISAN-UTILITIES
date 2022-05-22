@@ -53,9 +53,36 @@ Confirmación de Bajar Cambios
 ![image](https://user-images.githubusercontent.com/91748598/169713035-8df77098-82f3-4e2b-84f1-2b66a027bf4d.png)
 
 
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| php artisan GitReset _--log=“10”_ | GitReset es el comando que usamos cuando queremos mover el repositorio a una confirmación anterior, descartando cualquier cambio realizado después de esa confirmación, este comando es el igual a (git reset), se debe ejecutar bajo la responsabilidad que amerita el regresar el proyecto descartando los cambios posteriores. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
+
+```sh
+php artisan GitReset
+```
+
+![image](https://user-images.githubusercontent.com/91748598/169713175-16c5f349-f745-4bdb-ab0d-80099eec639f.png)
+
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| php artisan GitRevert _--log=“10”_ | GitRevert es el comando que usamos cuando queremos revertir el efecto de algunos cambios anteriores (posiblemente defectuosos), no elimina los cambios solo revierte lo implementado en las confirmaciones posteriores a la seleccionada para revertir. El comando recibe el parámetro --log el cual permite indicar cuantos cambios se desean listar para seleccionar a cual regresar, de no especificarse, se listaran los últimos 10 cambios cargados. |
+
+```sh
+php artisan GitRevert
+```
+
+![image](https://user-images.githubusercontent.com/91748598/169713225-9d61a55f-a8ab-44eb-ae7b-6b70e7ba2584.png)
 
 
+| COMANDO | DESCRIPCIÓN |
+| ----------- | ----------- |
+| php artisan FlushVendor | Este comando es ideal para guardar los cambios que se han ejecutado de manera manual en el Vendor del proyecto, esto debido a que muchas veces cambiamos cosas que el hacer composer update o install se pierden, podemos evitar ir a ajustar nuevamente los documentos con este comando.
 
+Modo de uso:
+
+1. Debe copiar los archivos individuales o las carpetas (Estas no pueden llevar subniveles, solo se remplaza la carpeta con su contenido inmediato), a remplazar en el vendor a la ruta (app\Console\Commands\FlushVendor) donde las carpetas irán en Directories y los archivos en Files.
+
+2. En esta misma ruta se encuentra un archivo llamado Routes.php, el cual permite relacionar el origen y el destino de los archivos dentro del vendor. Los archivos deben ir dentro de $routeFile y las carpetas dentro de $routeDir, el documento cuenta con las observaciones suficientes para interpretar su uso. |
 
 ## Desarrollador
 
