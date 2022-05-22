@@ -30,6 +30,11 @@ Podrá invocar el comando que requiera desde cualquier terminal sobre la carpeta
 
 | COMANDOO | DESCRIPCIÓN |
 | ----------- | ----------- |
+| php artisan FlushCache | Limpie su proyecto de manera completa con un solo comando, en el terminal que esté usando se listará las limpiezas ejecutadas, es importante que cuente con conexión a la base de datos del proyecto ya que ejecuta limpiezas en tablas propias del Framework. |
+
+![image](https://user-images.githubusercontent.com/91748598/169712841-310e9ead-b5ee-4667-9d79-0afb537701dc.png)
+
+
 
 
 ## Desarrollador
