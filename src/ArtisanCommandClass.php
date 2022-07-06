@@ -217,14 +217,40 @@ class ArtisanCommandClass{
 
     # -- Ejecuaciones de comandos Shell
     public static function GitStatus(){
-
+        /* Retorna las lineas de GitStatus */
         $status = shell_exec('git status');
-        return $status;
+
+        /* Limpiar Respuesta */
+        // Convertir en Array
+        $status = explode("\n", $status);
+
+        /* Eliminar Lineas Con informacion no relevante a cambios vigentes. */
+        for ($i=0; $i <= 5; $i++) {
+            if(isset($status[$i])){
+                unset($status[$i]);
+            }
+        }
+
+        /* Eliminar Filas Vacias*/
+        $data = [];
+        if (count($status) > 0) {
+            foreach ($status as $one) {
+                if (($one != "") && (!str_contains($one, 'no changes added')) && (!str_contains($one, 'Changes not staged')) && (!str_contains($one, 'git add')) && (!str_contains($one, 'git restore'))) {
+                    $one = str_replace("\t", "", $one);
+                    $one = str_replace(":   ", " => ", $one);
+                    array_push($data, $one);
+                }
+            }
+        } else {
+            array_push($data, 'No Registran Cambios Locales');
+        }
+
+        return $data;
     }
 
     # -- Ejecuaciones de comandos Shell
     public static function GitAdd(){
-
+        /* Agregar Todos los Cambios Locales */
         $add = shell_exec('git add .');
         return $add;
     }
@@ -232,6 +258,44 @@ class ArtisanCommandClass{
     // Tiempo de Proceso
     public static function ProcessingTime($time){
         sleep($time);
+    }
+
+    # -- Comentario Archivos Modificados
+    public static function comment($array){
+
+        if(count($array) > 0 && $array[0] != 'No Registran Cambios Locales'){
+            $data = [];
+            foreach ($array as $key => $value) {
+                $linea = explode(' => ', $value);
+                $linea = $linea[count($linea) - 1];
+                array_push($data, $linea);
+            }
+            $data = implode(', ', $data);
+            return 'Archivo(s) Actualizado(s) => ' . $data;
+
+        } else {
+            return 'Cambios => ' . date('Y-m-d H:i:s');
+        }
+
+    }
+
+    # -- Validar Rama Enviada Como Parametro
+    public static function branchValidate($rama){
+
+        /* Consultar Ramas */
+        $ramasCrudo = Self::GitBranch();
+
+        /* Arreglo con las Ramas */
+        $arrayRamas = explode('remotes/origin/' , $ramasCrudo);
+        $ramasFinal = Self::ArrayRamas($arrayRamas);
+
+        foreach ($ramasFinal as $key => $value) {
+            if ($value == $rama) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     # -- Ejecuaciones de comandos Shell
