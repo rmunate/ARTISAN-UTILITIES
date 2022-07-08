@@ -1,4 +1,4 @@
-# Artisan-Git V1.1 (2022-07-06)
+# Artisan-Git V 1.0.1 (2022-07-06)
 ## _Porque siempre puede ser más fácil trabajar en equipo._
 
 [![N|Solid](https://i.ibb.co/ZLzQTpm/Firma-Git-Hub.png)](#)
@@ -89,7 +89,7 @@ Modo de uso:
 ## Desarrollador
 
 Ingeniero, Raúl Mauricio Uñate Castro
-sacon-raulmauricio@hotmail.com
+raulmauriciounate@gmail.com
 
 ## Licencia
 MIT
