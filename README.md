@@ -22,7 +22,8 @@ Copie el contenido del paquete a la ruta _app\Console_
 app\Console
 ```
 
-![image](https://user-images.githubusercontent.com/91748598/169712357-a675d3f6-094f-4434-bcfa-403ca92fb160.png)
+![image](https://user-images.githubusercontent.com/91748598/180231263-fb5183cd-0b1e-453b-81fc-8916e3be2e78.png)
+
 
 ## Comandos
 
