@@ -1,4 +1,4 @@
-# Artisan-Git V 1.0.1 (2022-07-06)
+# Artisan-Git V 2.0.0 (2022-07-21)(Reescrito)
 ## _Porque siempre puede ser más fácil trabajar en equipo._
 
 [![N|Solid](https://i.ibb.co/ZLzQTpm/Firma-Git-Hub.png)](#)
@@ -72,19 +72,6 @@ php artisan GitRevert
 ```
 
 ![image](https://user-images.githubusercontent.com/91748598/169713225-9d61a55f-a8ab-44eb-ae7b-6b70e7ba2584.png)
-
-
-| COMANDO | DESCRIPCIÓN |
-| ----------- | ----------- |
-| php artisan FlushVendor | Este comando es ideal para guardar los cambios que se han ejecutado de manera manual en el Vendor del proyecto, esto debido a que muchas veces cambiamos cosas que el hacer composer update o install se pierden, podemos evitar ir a ajustar nuevamente los documentos con este comando. |
-
-Modo de uso:
-
-1. Debe copiar los archivos individuales o las carpetas (Estas no pueden llevar subniveles, solo se remplaza la carpeta con su contenido inmediato), a remplazar en el vendor a la ruta (app\Console\Commands\FlushVendor) donde las carpetas irán en Directories y los archivos en Files.
-
-2. En esta misma ruta se encuentra un archivo llamado Routes.php, el cual permite relacionar el origen y el destino de los archivos dentro del vendor. Los archivos deben ir dentro de $routeFile y las carpetas dentro de $routeDir, el documento cuenta con las observaciones suficientes para interpretar su uso.
-
-![image](https://user-images.githubusercontent.com/91748598/169713424-75b0b887-a6bb-48a2-845e-dcd5bd4a858d.png)
 
 ## Desarrollador
 
