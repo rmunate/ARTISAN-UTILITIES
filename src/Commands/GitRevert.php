@@ -7,7 +7,10 @@
 |
 | Este comando simplifica la ejecucion de los comandos Git para reversar cambios.
 | Autor: Raul Mauricio Uñate Castro
-| Fecha: 20-12-2021
+| V 1.0: 20-12-2021
+| V 1.2: 01-05-2022
+| V 2.0: 19-07-2022 (Reescrito)
+|--------------------------------------------------------------------------
 |
 */
 
@@ -15,43 +18,40 @@ namespace App\Console\Commands;
 
 use Artisan;
 use Illuminate\Console\Command;
-use App\Console\ArtisanCommandClass;
+use App\Console\ArtisanUtilities;
 
 class GitRevert extends Command{
 
-    /*
-    |--------------------------------------------------------------------------
-    | Identificación Comando.
-    |--------------------------------------------------------------------------
-    |
-    | $signature = Nombre para Consola.
-    | description = Descripción.
-    |
-    */
-
+    /**
+     * Nombre del Comando
+     * @var string
+     */
     protected $signature = 'GitRevert {--log=}';
+
+    /**
+     * Descripcion del proyecto
+     * @var string
+     */
     protected $description = 'Reversar Cambios en el directorio de destino';
 
-    /*  Constructor de la Clase */
+    /**
+     * Constructor
+     */
     public function __construct(){
         parent::__construct();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Incio Ejecución de Comando.
-    |--------------------------------------------------------------------------
-    |
-    | Logaritmo Comando.
-    |
-    */
+    /**
+     * Codigo del Comando
+     * @return Void
+     */
     public function handle(){
 
         /* Inicio Comando */
-        $this->line('Start GitRevert Artisan Utilities');
+        $this->line(ArtisanUtilities::$start);
 
         /* Arreglo de Commits */
-        $arrayCommits = ArtisanCommandClass::GitCommits();
+        $arrayCommits = ArtisanUtilities::GitCommits();
 
         /* Cuenta de commits */
         $countCommits = count($arrayCommits);
@@ -60,7 +60,7 @@ class GitRevert extends Command{
         $msjCommits = $countCommits - 1;
 
         /* Mensaje con la cantidad de commits del repositorio */
-        $this->info('El repositorio cuenta con un total de ' . $msjCommits . ' commits aplicados.');
+        $this->info('El Repositorio Cuenta Con Un Total De ' . $msjCommits . ' Commits Aplicados.');
 
         /* Eliminar los comits que llegasen a aparecer repetidos */
         $uniqueCommits = array_unique($arrayCommits);
@@ -79,12 +79,12 @@ class GitRevert extends Command{
                 if ($cantidadPre < $countCommits) {
                     /* Se lista la cantidad definida por el usuario. */
                     $cantidad = $cantidadPre;
-                    $this->info('Se listaran un maximo de ' . $cantidad . ' commits.');
+                    $this->info('Se Listaran Un Maximo De ' . $cantidad . ' Commits.');
 
                 } else {
                     /* Se lista el total de commits ya que el numero ingresado es superior al existente */
                     $cantidad = $countCommits - 1;
-                    $this->info('Se listaran un maximo de ' . $cantidad . ' commits aplicados ya que el valor ingresado supera el real existente.');
+                    $this->info('Se Listaran Un Maximo De ' . $cantidad . ' Commits Aplicados Ya Que El Valor Ingresado Supera El Real Existente.');
 
                 }
 
@@ -94,7 +94,7 @@ class GitRevert extends Command{
 
             /* Si el usuario no define la cantidad, se listan por defecto 10 commits*/
             $cantidad = 10;
-            $this->info('Se listaran un maximo de ' . $cantidad . ' commits aplicados ya que no se definio una cantidad a traves de la opcion --log=');
+            $this->info('Se Listaran Un Maximo De ' . $cantidad . ' Commits Aplicados Ya Que No Se Definio Una Cantidad A Traves De La Opcion --log=');
 
         }
 
@@ -102,13 +102,13 @@ class GitRevert extends Command{
         $arrayCommits_t = array_slice($uniqueCommits, 0, ($cantidad));
 
         /* Saneamiento del Log */
-        $arrayCommitsList = ArtisanCommandClass::GitLogs($arrayCommits_t);
+        $arrayCommitsList = ArtisanUtilities::GitLogs($arrayCommits_t);
 
         /* Pregunta de Seleccion */
-        $this->line('Revisa Detenidamente.');
+        $this->line('Revisa Detenidamente!');
 
         $preguntaRevert = $this->choice(
-            'Selecciona El Cambio a Restarurar.',
+            'Selecciona El Cambio A Restarurar.',
             $arrayCommitsList
         );
 
@@ -116,7 +116,7 @@ class GitRevert extends Command{
         $cambio = substr($preguntaRevert, 0, 8);
 
         /* Arreglo con los Datos del Show */
-        $arrayShowCommits = ArtisanCommandClass::GitShow($cambio);
+        $arrayShowCommits = ArtisanUtilities::GitShow($cambio);
 
         /* Extraer los tres datos relevantes del cambio
         * Consecutivo
@@ -139,15 +139,15 @@ class GitRevert extends Command{
         if ($this->confirm('¿Estas Seguro(a) De Ejecutar Una Reversion Al Cambio ' . $cambio . '?')) {
 
             // Ejecutar Reverso al Cambio
-            ArtisanCommandClass::GitRevert($cambio);
+            ArtisanUtilities::GitRevert($cambio);
 
-            $this->info('Proceso Completo!');
-            $this->line('End GitRevert Artisan Utilities');
+            $this->info(ArtisanUtilities::$last);
+            $this->line(ArtisanUtilities::$end);
 
         } else {
 
-            $this->info('Proceso Cancelado!');
-            $this->line('End GitRevert Artisan Utilities');
+            $this->info(ArtisanUtilities::$cancel);
+            $this->line(ArtisanUtilities::$end);
 
         }
 
